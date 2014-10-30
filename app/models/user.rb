@@ -9,15 +9,15 @@ class User <  ActiveRecord::Base
 
   validates :session_token, presence: true, uniqueness: true
 
-  def ensure_session_token
-    self.session_token ||= SecureRandom.urlsafe_base64
-  end
-
-  def find_by_credentials(email, password)
+  def self.find_by_credentials(email, password)
     user = User.find_by_email(email)
     if user && user.is_password?(password) 
       user
     end
+  end
+
+  def ensure_session_token
+    self.session_token ||= SecureRandom.urlsafe_base64
   end
 
   def is_password? password

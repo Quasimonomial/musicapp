@@ -4,11 +4,17 @@ class SessionsController < ApplicationController
   end
 
   def create
-
+    @user = User.find_by_credentials(user_params[:username], user_params[:password])
+    if @user
+      log_in_user! @user
+      redirect_to user_url(@user.id)
+    else
+      render json: "You have an invalid username or password"
+    end
   end
 
-  def destroy user
-    session[:session_token] = ""
+  def destroy
+    log_out_user!
   end
 
   private
