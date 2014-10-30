@@ -1,4 +1,5 @@
 require 'securerandom'
+require 'bcrypt'
 
 class User <  ActiveRecord::Base
   after_initialize :ensure_session_token
@@ -19,11 +20,11 @@ class User <  ActiveRecord::Base
   end
 
   def password= password
-    password == BCrypt::Password.create(self.password_digest)
+    self.password_digest = BCrypt::Password.create(password)
 
   end
 
   def is_password? password
-    BCrypt::Password.new(self.password_digest)
+    BCrypt::Password.new(self.password_digest) == password
   end
 end
