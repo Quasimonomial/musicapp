@@ -5,6 +5,11 @@ Rails.application.routes.draw do
 
   resource :session, :only => [:new, :create, :destroy]
 
+  resources :bands
+  resources :albums
+  resources :tracks
+
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

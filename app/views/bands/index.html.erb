@@ -1,0 +1,18 @@
+<ul>
+	<% Band.all.each do |band|%>
+
+	<li>
+		<%= link_to band.name, band_url(band.id)%>
+		<%= link_to "Edit Band", edit_band_url(band.id)%>
+		<form action = "/bands" method = "POST">
+			<input type = "hidden" name = "_method" value = "DELETE">
+			<input type = "hidden" name = "id" value = band.id>
+			<input type = "submit" value = "Remove Band">
+		</form>
+	</li>
+
+
+	<%end%>
+</ul>
+
+<%= link_to "New Band!", new_band_url%>
