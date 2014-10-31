@@ -5,20 +5,22 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    render json: @user
+    render :show
   end
 
   def create
     @user = User.new(user_params)
     if @user.save
+      log_in_user! @user
       redirect_to user_url(@user.id)
     else
-      render json: @user.errors.full_messages
+      flash[:errors] = @user.errors.full_messages
+      render :new
     end
   end
 
   def new
-    User.new
+    render :new
   end
   
   private

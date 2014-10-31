@@ -5,9 +5,9 @@ class User <  ActiveRecord::Base
   after_initialize :ensure_session_token
 
   validates :password_digest, presence: true
-  validates :email, presence: true, uniqueness: true
+  validates :email, :session_token, presence: true, uniqueness: true
 
-  validates :session_token, presence: true, uniqueness: true
+  # validates :session_token, presence: true, uniqueness: true
 
   def self.find_by_credentials(email, password)
     user = User.find_by_email(email)

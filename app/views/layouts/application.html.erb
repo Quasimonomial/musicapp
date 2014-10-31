@@ -8,7 +8,17 @@
 </head>
 <body>
 
+<h2>Welcolme to the Music App</h2>
+<%= flash[:errors] %>
 <%= yield %>
 
+<%if logged_in?%>
+	<form action = "/session" method = "POST">
+		<input type = "hidden" name ="_method" value ="DELETE">
+
+		<input type = "submit" value = "Log Out!">
+	</form>
+
+<%end%>
 </body>
 </html>
